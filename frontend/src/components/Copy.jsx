@@ -1,19 +1,19 @@
 import { useCallback } from "react";
 
-function Copy({ path }) {
+function Copy({ uuid }) {
   const onClick = useCallback(() => {
     try {
-      navigator.clipboard.writeText(path);
+      navigator.clipboard.writeText(uuid);
       alert("Copied!");
     } catch {
       alert("Failed to copy!");
     }
-  }, [path]);
+  }, [uuid]);
 
   return (
-    <span className="copy" onClick={onClick}>
-      📋
-    </span>
+    <button className="copy" onClick={onClick}>
+      Copy
+    </button>
   );
 }
 
