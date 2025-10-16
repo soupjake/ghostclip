@@ -1,13 +1,20 @@
-import { useCallback } from "react"
+import { useCallback } from "react";
 
-function Copy() {
-    const onClick = useCallback(() => 
-        navigator.clipboard.writeText(window.location)
-    , [])
+function Copy({ path }) {
+  const onClick = useCallback(() => {
+    try {
+      navigator.clipboard.writeText(path);
+      alert("Copied!");
+    } catch {
+      alert("Failed to copy!");
+    }
+  }, [path]);
 
-    return (
-        <button onClick={onClick}>Copy</button>
-    )
+  return (
+    <span className="copy" onClick={onClick}>
+      📋
+    </span>
+  );
 }
 
-export default Copy
+export default Copy;

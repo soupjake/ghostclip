@@ -8,3 +8,13 @@
 .logo {
   font-size: 6rem;
 }
+
+.path {
+  word-break: break-all;
+}
+
+.copy {
+  font-size: 2rem;
+  cursor: pointer;
+}
+

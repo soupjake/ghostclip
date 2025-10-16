@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { v4 } from "uuid";
-import "./App.css";
 import Copy from "./components/Copy";
+import "./App.css";
 
 function App() {
   const path = useMemo(() => {
@@ -19,8 +19,8 @@ function App() {
   return (
     <>
       <h2 className="logo">👻</h2>
-      <h2>{path}</h2>
-      <Copy />
+      <h2 className="path">{path} <Copy path={path} /></h2>
+
     </>
   );
 }
