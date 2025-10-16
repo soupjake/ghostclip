@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: GhostClip serverless backend
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 5
+    MemorySize: 128
+
+Resources:
+  ClipsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ghostclip-clips
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  CreateClipFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/create.handler
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /clip
+            Method: post
+      Environment:
+        Variables:
+          TABLE: !Ref ClipsTable
