@@ -1,32 +1,19 @@
-import { useCallback, useMemo, useState } from "react"
-import { deleteClips } from "../services/clipService"
+import { useCallback } from "react"
+import { deleteClip } from "../service"
 
-function Delete({ uuid, selected, onDelete }) {
-  const [loading, setLoading] = useState(false)
+export const Delete = ({ id, setMessage, setClip }) => {
   const onClick = useCallback(async () => {
-    setLoading(true)
-    const deleted = await deleteClips(uuid)
+    setMessage("Deleting...")
+
+    const deleted = await deleteClip(id)
 
     if (deleted) {
-      onDelete()
+      setClip("")
+      setMessage("Deleted!")
+    } else {
+      setMessage("Failed to delete!")
     }
+  }, [id, setMessage, setClip])
 
-    setLoading(false)
-  }, [uuid, onDelete])
-
-  const buttonText = useMemo(() => {
-    if (loading) {
-      return "Loading"
-    }
-
-    return `Delete (${selected.length})`
-  }, [loading, selected])
-
-  if (!selected.length) {
-    return null
-  }
-
-  return <button onClick={onClick}>{buttonText}</button>
+  return <i onClick={onClick}>✖️</i>
 }
-
-export default Delete

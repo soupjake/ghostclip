@@ -1,20 +1,14 @@
-import { useCallback } from "react";
+import { useCallback } from "react"
 
-function Copy({ uuid }) {
+export const Copy = ({ id, setMessage }) => {
   const onClick = useCallback(() => {
     try {
-      navigator.clipboard.writeText(uuid);
-      alert("Copied!");
+      navigator.clipboard.writeText(id)
+      setMessage("Copied!")
     } catch {
-      alert("Failed to copy!");
+      setMessage("Failed to copy!")
     }
-  }, [uuid]);
+  }, [id, setMessage])
 
-  return (
-    <button className="copy" onClick={onClick}>
-      Copy
-    </button>
-  );
+  return <i onClick={onClick}>📋</i>
 }
-
-export default Copy;

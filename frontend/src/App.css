@@ -9,6 +9,10 @@
   font-size: 6rem;
 }
 
+.emoji {
+  font-size: 2rem;
+}
+
 .path {
   word-break: break-all;
 }
@@ -19,21 +23,18 @@
   margin-left: 1rem
 }
 
-.clips {
+.clip {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: stretch;
 }
 
 .clip-text {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  cursor: pointer;
-  padding: 0.6em 1.2em;
-  transition: color 0.25s;
+  font-size: 1.5rem;
+  border: 0
 }
 
-.clip-text:hover {
-  color: #646cff;
+.actions {
+  display: flex;
+  justify-content: space-evenly;
 }
