@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 export const initialState = {
   id: "",
-  loading: true,
+  loading: false,
   clip: "",
   message: "",
 }

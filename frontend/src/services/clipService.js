@@ -4,7 +4,7 @@ const headers = {
   "x-api-key": import.meta.env.VITE_API_KEY,
 }
 
-export async function getClip(id) {
+export async function getClipById(id) {
   try {
     const url = `${baseUrl}/${id}`
     console.log(url, headers)
@@ -20,7 +20,7 @@ export async function getClip(id) {
   }
 }
 
-export async function createClip(id) {
+export async function createClipById(id) {
   try {
     const url = `${baseUrl}/${id}`
     console.log(url, headers)
@@ -36,7 +36,7 @@ export async function createClip(id) {
   }
 }
 
-export async function deleteClip(id) {
+export async function deleteClipById(id) {
   try {
     const url = `${baseUrl}/${id}`
     console.log(url, headers)

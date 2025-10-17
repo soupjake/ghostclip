@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { fetchClip } from "./store/clipSlice"
+import { fetchClip } from "./store/clipThunks"
 import { Clip } from "./components/Clip"
 import { Header } from "./components/Header"
 import "./App.css"

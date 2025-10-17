@@ -1,20 +1,20 @@
 import { useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { selectId } from "../store/clipSelectors"
+import { selectClip } from "../store/clipSelectors"
 import { setMessage } from "../store/clipSlice"
 
 export const Copy = () => {
   const dispatch = useDispatch()
-  const id = useSelector(selectId)
+  const clip = useSelector(selectClip)
 
   const onClick = useCallback(() => {
     try {
-      navigator.clipboard.writeText(id)
+      navigator.clipboard.writeText(clip)
       dispatch(setMessage("Copied!"))
     } catch {
       dispatch(setMessage("Failed to copy!"))
     }
-  }, [id, dispatch])
+  }, [dispatch, clip])
 
   return <i onClick={onClick}>📋</i>
 }
