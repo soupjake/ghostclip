@@ -2,17 +2,11 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: GhostClip serverless backend
 
-Globals:
-  Function:
-    Runtime: nodejs20.x
-    Timeout: 5
-    MemorySize: 128
-
 Resources:
   ClipsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ghostclip-clips
+      TableName: ghostclips
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         - AttributeName: id
@@ -24,16 +18,40 @@ Resources:
         AttributeName: ttl
         Enabled: true
 
-  CreateClipFunction:
+  ClipsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/create.handler
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /clip
-            Method: post
+      FunctionName: "clips-function"
+      CodeUri: src/
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Role: !GetAtt ClipsRole.Arn
+      Timeout: 5
+      MemorySize: 256
       Environment:
         Variables:
           TABLE: !Ref ClipsTable
+
+  ClipsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: dbAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:DeleteItem
+                Resource: !GetAtt ClipsTable.Arn
