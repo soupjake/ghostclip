@@ -1,19 +1,25 @@
 import { useCallback } from "react"
-import { deleteClip } from "../service"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteClip } from "../services/clipService"
+import { selectId } from "../store/clipSelectors"
+import { setClip, setMessage } from "../store/clipSlice"
 
-export const Delete = ({ id, setMessage, setClip }) => {
+export const Delete = () => {
+  const dispatch = useDispatch()
+  const id = useSelector(selectId)
+
   const onClick = useCallback(async () => {
-    setMessage("Deleting...")
+    dispatch(setMessage("Deleting..."))
 
     const deleted = await deleteClip(id)
 
     if (deleted) {
-      setClip("")
-      setMessage("Deleted!")
+      dispatch(setClip(""))
+      dispatch(setMessage("Deleted!"))
     } else {
-      setMessage("Failed to delete!")
+      dispatch(setMessage("Failed to delete!"))
     }
-  }, [id, setMessage, setClip])
+  }, [id, dispatch])
 
   return <i onClick={onClick}>✖️</i>
 }
